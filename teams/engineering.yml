@@ -12,6 +12,7 @@ policies:
   - path: ../lib/macos/policies/macos-device-health.policies.yml
   - path: ../lib/windows/policies/windows-device-health.policies.yml
   - path: ../lib/linux/policies/linux-device-health.policies.yml
+  - path: lib/macos/policies/all-windows-updates-installed.policies.yml
 queries:
   - path: ../lib/all/queries/collect-usb-devices.queries.yml
   - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
@@ -23,9 +24,9 @@ controls:
 macos_updates:
 deadline: "2025-10-10"
 ipados_updates:
-  deadline: "2025-09-30"
-  minimum_version: "18.5"
-  minimum_version: "16.0"
+   deadline: "2025-10-15"
+   minimum_version: "17.2"
+   minimum_version: "16.0"
 macos_settings:
   custom_settngs:
     - path: lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
@@ -34,6 +35,13 @@ macos_settings:
     - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
     - path: ../lib/macos/scripts/set-timezone.script.sh
 team_settings:
+webhook_settings:
+failing_policies_webhook:
+  enable_failing_policies_webhook: true
+  destination_url: https://example.org/webhook_handler
+  host_batch_size: 0
+  policy_ids: 
+    - 
   secrets:
     - secret: $FLEET_ENGINEERING_ENROLL_SECRET
   features:
